@@ -23,7 +23,7 @@ A basic todo list application created with HTML, CSS, and JavaScript. This proje
    cd todo-list-app
    ```
 
-2. Open `template.html` in your web browser.
+2. Open `readme_images/template.html` in your web browser.
 
 ### Development (Optional)
 If you want to make changes and use webpack:
