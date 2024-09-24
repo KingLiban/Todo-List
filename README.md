@@ -9,6 +9,9 @@ A basic todo list application created with HTML, CSS, and JavaScript. This proje
 - Delete tasks
 - Simple and clean interface
 
+## Live Preview
+You can try the live version of the Matrix Solver at the following link: [Todo List App Live Preview](https://kingliban.github.io/todo-list/)
+
 ![alt text](readme_images/image-1.png)
 
 ## Getting Started
