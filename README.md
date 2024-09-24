@@ -1,5 +1,5 @@
 # Todo List App
-![alt text](image.png)
+![alt text](readme_images/image.png)
 ## Overview
 A basic todo list application created with HTML, CSS, and JavaScript. This project was developed as part of a JavaScript learning journey.
 
@@ -9,7 +9,7 @@ A basic todo list application created with HTML, CSS, and JavaScript. This proje
 - Delete tasks
 - Simple and clean interface
 
-![alt text](image-1.png)
+![alt text](readme_images/image-1.png)
 
 ## Getting Started
 
@@ -23,7 +23,7 @@ A basic todo list application created with HTML, CSS, and JavaScript. This proje
    cd todo-list-app
    ```
 
-2. Open `readme_images/template.html` in your web browser.
+2. Open `template.html` in your web browser.
 
 ### Development (Optional)
 If you want to make changes and use webpack:
