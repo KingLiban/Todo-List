@@ -4,44 +4,62 @@ import "./styles.css";
 console.log("Hello World");
 
 const todoApp = (function () {
-  let projects = [
-    {
-      id: -1,
-      name: "Home",
-      todos: [],
-    },
-    {
-      id: 1,
-      name: "Workout",
-      todos: [],
-    },
-    {
-      id: 2,
-      name: "School",
-      todos: [],
-    },
-  ];
+  let projects = [];
 
-  createTodo("Take the trash out", "", "No date", "medium", -1),
-  createTodo("Do the dishes", "", "No date", "high", -1);
-  createTodo("Lift very heavy weight", "", "2024-09-15", "medium", 1);
+  function saveToLocalStorage() {
+    localStorage.setItem('todoProjects', JSON.stringify(projects));
+  }
+
+  function loadFromLocalStorage() {
+    const storedProjects = localStorage.getItem('todoProjects');
+    if (storedProjects) {
+      projects = JSON.parse(storedProjects);
+    } else {
+      projects = [
+        {
+          id: -1,
+          name: "Home",
+          todos: [],
+        },
+        {
+          id: 1,
+          name: "Workout",
+          todos: [],
+        },
+        {
+          id: 2,
+          name: "School",
+          todos: [],
+        },
+      ];
+      
+      // Add default todos
+      createTodo("Take the trash out", "", "No date", "medium", -1);
+      createTodo("Do the dishes", "", "No date", "high", -1);
+      createTodo("Lift very heavy weight", "", "2024-09-15", "medium", 1);
+      
+      saveToLocalStorage();
+    }
+  }
+
   let currentProjectId = -1;
 
   function createProject(name) {
     const project = {
-      id: Math.random(),
+      id: Date.now(),
       name: name,
       todos: [],
     };
 
     projects.push(project);
+    saveToLocalStorage();
     return project;
   }
 
   function createTodo(name, description, dueDate, priority, projectId) {
     const project = projects.find((p) => p.id === projectId);
     const todo = {
-      id: Date.now() + Math.random(),
+      id: Date.now(),
       name,
       description,
       dueDate,
@@ -50,7 +68,7 @@ const todoApp = (function () {
     };
 
     project.todos.push(todo);
-
+    saveToLocalStorage();
     return todo;
   }
 
@@ -71,6 +89,7 @@ const todoApp = (function () {
     const todo = project.todos.find((t) => t.id === todoId);
     if (todo) {
       todo.completed = !todo.completed;
+      saveToLocalStorage();
       return todo.completed;
     }
     return false;
@@ -80,6 +99,7 @@ const todoApp = (function () {
     const projectIndex = projects.findIndex((p) => p.id === projectId);
     if (projectIndex !== -1) {
       projects.splice(projectIndex, 1);
+      saveToLocalStorage();
     }
   }
 
@@ -88,10 +108,16 @@ const todoApp = (function () {
     const todoIndex = project.todos.findIndex((t) => t.id === todoId);
     if (todoIndex !== -1) {
       project.todos.splice(todoIndex, 1);
+      saveToLocalStorage();
     }
   }
 
+  function init() {
+    loadFromLocalStorage();
+  }
+
   return {
+    init,
     createProject,
     createTodo,
     getProjects,
@@ -102,6 +128,7 @@ const todoApp = (function () {
     toggleTodoCompletion,
   };
 })();
+
 
 const domHandler = (function () {
   const projectForm = document.querySelector("#project-form");
@@ -401,5 +428,6 @@ const domHandler = (function () {
 })();
 
 document.addEventListener("DOMContentLoaded", () => {
+  todoApp.init();
   domHandler.init();
 });
